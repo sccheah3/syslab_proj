@@ -1,4 +1,4 @@
-"""linpack_bench_project URL Configuration
+"""syslab_proj URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
+    path('linpack_bench/', include('linpack_bench_app.urls')),
 ]
