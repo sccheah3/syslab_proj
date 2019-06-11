@@ -1,0 +1,42 @@
+Tester: Kenneth
+---------------System Information---------------
+Motherboard: X9DRT-P
+BIOS ver: 05/07/2015
+IPMI ver: 3.53
+--------------Processor Information--------------
+Processor:  Genuine Intel(R) CPU @ 3.10GHz
+Frequency:   3100 MHz
+Processor Count: 2
+Cores per Processor: 8
+Total Core Count: 16
+--------------Memory Information---------------
+Number of DIMMs: 8
+Configured Clock Speed: 1333 MHz
+DIMM Manufacturer:  Hynix Semiconductor
+DIMM Manufacturer:  Hynix Semiconductor
+DIMM Manufacturer:  Hynix Semiconductor
+DIMM Manufacturer:  Hynix Semiconductor
+DIMM Manufacturer:  Samsung
+DIMM Manufacturer:  Samsung
+DIMM Manufacturer:  Samsung
+DIMM Manufacturer:  Samsung
+DIMM P/N:   HMT351R7AFR8C-H9
+DIMM P/N:   HMT351R7AFR8C-H9
+DIMM P/N:   HMT351R7AFR8C-H9
+DIMM P/N:   HMT351R7AFR8C-H9
+DIMM P/N:   M393B5273DH0-CK0
+DIMM P/N:   M393B5273DH0-CK0
+DIMM P/N:   M393B5273DH0-CK0
+DIMM P/N:   M393B5273DH0-CK0
+Total Memory: 32.90551 GB
+--------------Processor Family----------------
+Processor is IvyBridge/SandyBridge Family
+--------------------HPL.dat--------------------
+Block Size = 256
+Problem Size = 52992
+---------------Linpack Theoretical Score---------------
+Theoretical Score = 396.80 GFLOPS
+--------------------Linpack score-------------------
+Linpack score = 370.86800 GFLOPs
+---------------------Efficiency----------------------
+Efficiency: 93.46%

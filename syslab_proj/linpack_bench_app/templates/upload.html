@@ -4,9 +4,9 @@
 
 {% block content %}
 <h2>Upload File</h2>
-<form method="post">
+<form enctype="multipart/form-data" method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Login</button>
+  <button type="submit">submit</button>
 </form>
 {% endblock %}

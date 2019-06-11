@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'linpack_bench_app.apps.LinpackBenchAppConfig',
+    'system_test_app.apps.SystemTestAppConfig',
 ]
 
 MIDDLEWARE = [
