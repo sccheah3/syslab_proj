@@ -14,7 +14,7 @@ from .models import Linpack
 
 
 # files < 2.5 MB stored in mem. Files > are stored in a tmp folder
-# curl --form title=TestTitle --form file=@test.txt http://127.0.0.1:8000/linpack_bench/upload_file/
+# curl --form title=TestTitle --form file=@test.txt http://127.0.0.1:8000/linpack_bench/upload_zipfile/
 @csrf_exempt	# can be dangerous with bad request. ASSUMPTION: no one will do anything dumb or malicious
 def upload_zipfile(request):
 	if request.method == 'POST':
@@ -29,24 +29,34 @@ def upload_zipfile(request):
 				zFile = zipfile.ZipFile(file)
 				file_list = zFile.namelist()
 
-				# check that zip contain HPL.dat, output, and sysinfo files 
-				if (not file_exists(file_list, 'HPL.dat') or \
-					not file_exists(file_list, 'output') or \
-					not file_exists(file_list, 'sysinfo')):
+				# if directory has same name inside zip file without .zip ext
+				file_without_ext = str(file)
+				file_without_ext = file_without_ext.replace('.zip', '')
+				# print(file_without_ext)
+
+				hpl_filename = get_filename(file_list, file_without_ext, 'HPL.dat')
+				output_filename = get_filename(file_list, file_without_ext, 'output')
+				sysinfo_filename = get_filename(file_list, file_without_ext, 'sysinfo')
+
+				print("hpl_filename: " + hpl_filename)
+				print("output_filename: " + output_filename)
+				print("sysinfo_filename: " + sysinfo_filename)
+
+				if hpl_filename == -1 or output_filename == -1 or sysinfo_filename == -1:
 					return HttpResponse("Failed: File(s) is missing from zip")
 
 				# create a separate module to parse these files and input into database
 
 				with zipfile.ZipFile(file) as zip_file:
-					sysinfo_file = zip_file.open("sysinfo")
-					hpl_file = zip_file.open("HPL.dat")
-					output_file = zip_file.open("output")
+					sysinfo_file = zip_file.open(sysinfo_filename)
+					hpl_file = zip_file.open(hpl_filename)
+					output_file = zip_file.open(output_filename)
 
 					system = save_sysinfo(parsefile.SysInfoParser(sysinfo_file))
 
 					# TODO: unable to seek(0). find fix for this
 					sysinfo_file.close()
-					sysinfo_file = zip_file.open("sysinfo")
+					sysinfo_file = zip_file.open(sysinfo_filename)
 
 					save_linpackinfo(system, parsefile.LinpackParser(sysinfo_file, output_file))
 
@@ -62,8 +72,13 @@ def upload_zipfile(request):
 	else:
 		form = UploadFileForm()
 
-	return render(request, 'upload.html', {'form': form})
+	return render(request, 'linpack_bench_app/upload.html', {'form': form})
 
+
+def linpack_db(request):
+	systems = System.objects.all()
+
+	return render(request, 'linpack_bench_app/linpack_db.html', {'systems': systems})
 
 def index(request):
 	return HttpResponse("Hello world!")
@@ -75,9 +90,15 @@ def file_exists(filename_list, filename):
 	if (filename in filename_list):
 		return True
 
-	print ("Zip file is missing " + filename)
-
 	return False
+
+def get_filename(file_list, file_without_ext, base_name):
+	if base_name in file_list:
+		return base_name
+	elif (file_without_ext + "/" + base_name):
+		return file_without_ext + "/" + base_name
+
+	return -1
 
 def save_sysinfo(sysinfo):
 	formatted_bios_date = datetime.datetime.strptime(sysinfo.bios_date, "%m/%d/%Y").strftime("%Y-%m-%d")

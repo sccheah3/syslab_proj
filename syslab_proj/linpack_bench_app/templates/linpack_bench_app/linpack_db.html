@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Linpack Data{% endblock %}
+
+
+{% block content %}
+
+{% for system in systems %}
+	{{ system }}<br>
+	{{ system.bios_date }}<br>
+	{{ system.ipmi_version }}<br>
+	{{ system.processor_info }}<br>
+	{{ system.processor_freq }}<br>
+	{{ system.processor_count }}<br>
+	{{ system.total_core_count }}<br>
+	{{ system.total_dimm_count }}<br>
+
+	{% for dimm in system.dimm_set.all %}
+		{{ dimm.manufacturer }}<br>
+		{{ dimm.part_number }}<br>
+	{% endfor %}
+
+	{{ system.dimm_clock_speed }}<br>
+	{{ system.dimm_memory_size }}<br>
+	{{ system.processor_family }}<br>
+	{{ system.hpl_block_size }}<br>
+	{{ system.hpl_problem_size }}<br>
+	{{ system.linpack_theoretical_score }}<br>
+
+	{% for linpack in system.linpack_set.all %}
+		{{ linpack.tester_name }}<br>
+		{{ linpack.N }}<br>
+		{{ linpack.NB }}<br>
+		{{ linpack.PMAP }}<br>
+		{{ linpack.P }}<br>
+		{{ linpack.Q }}<br>
+		{{ linpack.PFACT }}<br>
+		{{ linpack.NBMIN }}<br>
+		{{ linpack.NDIV }}<br>
+		{{ linpack.RFACT }}<br>
+		{{ linpack.BCAST }}<br>
+		{{ linpack.DEPTH }}<br>
+		{{ linpack.SWAP }}<br>
+		{{ linpack.L1 }}<br>
+		{{ linpack.U }}<br>
+		{{ linpack.EQUIL }}<br>
+		{{ linpack.ALIGN }}<br>
+		{{ linpack.actual_GFLOPS }}<br>
+		{{ linpack.given_problem }}<br>
+		{{ linpack.expected_answer }}<br>
+		{{ linpack.answer_result }}<br><br><br>
+	{% endfor %}
+{% endfor %}
+
+{% endblock %}
