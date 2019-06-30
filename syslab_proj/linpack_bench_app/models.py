@@ -27,9 +27,6 @@ class Linpack(models.Model):
 	answer_result = models.CharField(max_length=20)
 	date_added = models.DateTimeField('date added')
 
-
-	# handle comparison when upload. see same system config and dimms but diff linpack
-
 	def __eq__(self, rhs):
 		if self.tester_name == rhs.tester_name and \
 		   self.N == rhs.N and \
