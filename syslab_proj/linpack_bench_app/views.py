@@ -8,9 +8,11 @@ from .forms import UploadFileForm
 from . import parsefile
 import zipfile
 import datetime
+from django_tables2 import RequestConfig
 
 from system_test_app.models import System, DIMM
 from .models import Linpack
+from .tables import SystemTable
 
 
 # files < 2.5 MB stored in mem. Files > are stored in a tmp folder
@@ -76,9 +78,10 @@ def upload_zipfile(request):
 
 
 def linpack_db(request):
-	systems = System.objects.all()
+	table = SystemTable(System.objects.all())
+	RequestConfig(request).configure(table)
 
-	return render(request, 'linpack_bench_app/linpack_db.html', {'systems': systems})
+	return render(request, 'linpack_bench_app/linpack_db.html', {'table': table})
 
 def index(request):
 	return HttpResponse("Hello world!")
@@ -159,7 +162,3 @@ def save_linpackinfo(system, linpack_info):
 							  date_added = timezone.now())
 
 	system.save()
-
-
-	# TODO: overload equals operator on models. so that if someone uploads 
-	# 		same exact config, it'll just add a new linpack row

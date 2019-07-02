@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'linpack_bench_app.apps.LinpackBenchAppConfig',
     'system_test_app.apps.SystemTestAppConfig',
+    'django_tables2',
 ]
 
 MIDDLEWARE = [

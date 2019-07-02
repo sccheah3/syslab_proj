@@ -20,6 +20,35 @@ class System(models.Model):
 	date_added = models.DateTimeField('date added')
 
 
+	@property
+	def dimm_data(self):
+		dimms = self.dimm_set.all()
+
+		dimm_dict = {}
+		output = ""
+
+		for dimm in dimms:
+			if dimm.part_number not in dimm_dict.keys():
+				dimm_dict[dimm.part_number] = 1
+			else:
+				dimm_dict[dimm.part_number] += 1
+
+		for i in dimm_dict:
+			output += str(dimm_dict[i]) + ': ' + i + ', '
+
+		return output
+
+	@property
+	def linpack_actual_data(self):
+		linpacks = self.linpack_set.all()
+
+		output = ""
+
+		for linpack in linpacks:
+			output += linpack.actual_GFLOPS + ", "
+
+		return output
+	
 	def __eq__(self, rhs):
 		if self.motherboard_model == rhs.motherboard_model and \
 		   self.bios_date == rhs.bios_date and \
