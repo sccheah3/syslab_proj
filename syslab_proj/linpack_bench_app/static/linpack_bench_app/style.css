@@ -1,0 +1,12 @@
+th, td {
+	text-align: center;
+	border: solid 1px;
+}
+
+th {
+	border: solid 3px;
+}
+
+body {
+	background-color: lightgray;
+}

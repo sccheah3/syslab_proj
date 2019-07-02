@@ -1,11 +1,37 @@
 {% extends 'base.html' %}
-{% load render_table from django_tables2 %}
+{% load static %}
+
+{% block metalink %}
+<link rel="stylesheet" type="text/css" href="{% static 'linpack_bench_app/style.css' %}">
+{% endblock %}
+
 {% block title %}Linpack Data{% endblock %}
 
 
 {% block content %}
 
-	{% render_table table %}
+	<table style="width:100%">
+		<tr>
+			<th>MB</th>
+			<th>Bios</th>
+			<th>IPMI</th>
+			<th>Processor</th>
+			<th>Total DIMMS</th>
+			<th>Linpack Theoretical</th>
+			<th>Linpack Score</th>
+		</tr>
+		{% for system in systems %}
+		<tr>
+			<td>{{ system.motherboard_model }}</td>
+			<td>{{ system.bios_date }}</td>
+			<td>{{ system.ipmi_version }}</td>
+			<td>{{ system.processor_info }}</td>
+			<td>{{ system.total_dimm_count }}</td>
+			<td>{{ system.linpack_theoretical_score }}</td>
+			<td>{{ system.linpack_actual_data }}</td>
+		</tr>
+		{% endfor %}
+	</table>
 
 {% endblock %}
 
