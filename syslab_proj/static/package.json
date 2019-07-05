@@ -1,0 +1,17 @@
+{
+  "name": "stanley",
+  "version": "1.0.0",
+  "description": "js lib for syslab projects",
+  "main": "index.js",
+  "dependencies": {
+    "datatables.net": "^1.10.19",
+    "datatables.net-dt": "^1.10.19",
+    "jquery": "^3.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "stanley",
+  "license": "ISC"
+}

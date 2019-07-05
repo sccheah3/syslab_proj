@@ -2,7 +2,14 @@
 {% load static %}
 
 {% block metalink %}
-<link rel="stylesheet" type="text/css" href="{% static 'linpack_bench_app/style.css' %}">
+
+	<link rel="stylesheet" href="{% static 'node_modules/datatables.net-dt/css/jquery.dataTables.min.css' %}">
+	<link rel="stylesheet" href="{% static 'linpack_bench_app/css/style.css' %}">
+	<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+	<script src="{% static 'node_modules/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'node_modules/datatables.net-dt/js/dataTables.dataTables.min.js' %}"></script>
+
+	<script src="{% static 'linpack_bench_app/js/linpack_db.js' %}"></script>
 {% endblock %}
 
 {% block title %}Linpack Data{% endblock %}
@@ -10,27 +17,31 @@
 
 {% block content %}
 
-	<table style="width:100%">
-		<tr>
-			<th>MB</th>
-			<th>Bios</th>
-			<th>IPMI</th>
-			<th>Processor</th>
-			<th>Total DIMMS</th>
-			<th>Linpack Theoretical</th>
-			<th>Linpack Score</th>
-		</tr>
-		{% for system in systems %}
-		<tr>
-			<td>{{ system.motherboard_model }}</td>
-			<td>{{ system.bios_date }}</td>
-			<td>{{ system.ipmi_version }}</td>
-			<td>{{ system.processor_info }}</td>
-			<td>{{ system.total_dimm_count }}</td>
-			<td>{{ system.linpack_theoretical_score }}</td>
-			<td>{{ system.linpack_actual_data }}</td>
-		</tr>
-		{% endfor %}
+	<table id="sysinfoTable">
+		<thead>
+			<tr>
+				<th>MB</th>
+				<th>Bios</th>
+				<th>IPMI</th>
+				<th>Processor</th>
+				<th>Total DIMMS</th>
+				<th>Linpack Theoretical</th>
+				<th>Linpack Score</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for system in systems %}
+			<tr>
+				<td>{{ system.motherboard_model }}</td>
+				<td>{{ system.bios_date }}</td>
+				<td>{{ system.ipmi_version }}</td>
+				<td>{{ system.processor_info }}</td>
+				<td>{{ system.total_dimm_count }}</td>
+				<td>{{ system.linpack_theoretical_score }}</td>
+				<td>{{ system.linpack_actual_data }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
 	</table>
 
 {% endblock %}
