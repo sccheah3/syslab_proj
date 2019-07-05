@@ -2,12 +2,14 @@
 {% load static %}
 
 {% block metalink %}
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 
-	<link rel="stylesheet" href="{% static 'node_modules/datatables.net-dt/css/jquery.dataTables.min.css' %}">
-	<link rel="stylesheet" href="{% static 'linpack_bench_app/css/style.css' %}">
-	<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
-	<script src="{% static 'node_modules/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-	<script src="{% static 'node_modules/datatables.net-dt/js/dataTables.dataTables.min.js' %}"></script>
+
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'linpack_bench_app/css/style.css' %}">
 
 	<script src="{% static 'linpack_bench_app/js/linpack_db.js' %}"></script>
 {% endblock %}
@@ -17,81 +19,35 @@
 
 {% block content %}
 
-	<table id="sysinfoTable">
-		<thead>
-			<tr>
-				<th>MB</th>
-				<th>Bios</th>
-				<th>IPMI</th>
-				<th>Processor</th>
-				<th>Total DIMMS</th>
-				<th>Linpack Theoretical</th>
-				<th>Linpack Score</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for system in systems %}
-			<tr>
-				<td>{{ system.motherboard_model }}</td>
-				<td>{{ system.bios_date }}</td>
-				<td>{{ system.ipmi_version }}</td>
-				<td>{{ system.processor_info }}</td>
-				<td>{{ system.total_dimm_count }}</td>
-				<td>{{ system.linpack_theoretical_score }}</td>
-				<td>{{ system.linpack_actual_data }}</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<div id="table-div">
+		<table id="sysinfoTable" class="table table-striped table-bordered" >
+			<thead>
+				<tr>
+					<th>MB</th>
+					<th>Bios</th>
+					<th>IPMI</th>
+					<th>Processor</th>
+					<th>Total DIMMS</th>
+					<th>Linpack Theoretical</th>
+					<th>Linpack Score</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for system in systems %}
+				<tr>
+					<td>{{ system.motherboard_model }}</td>
+					<td>{{ system.bios_date }}</td>
+					<td>{{ system.ipmi_version }}</td>
+					<td>{{ system.processor_info }}</td>
+					<td>{{ system.total_dimm_count }}</td>
+					<td>{{ system.linpack_theoretical_score }}</td>
+					<td>{{ system.linpack_actual_data }}</td>
+					<td>{{ system.date_added }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 
 {% endblock %}
-
-<!--
-
-{% for system in systems %}
-	{{ system }}<br>
-	{{ system.bios_date }}<br>
-	{{ system.ipmi_version }}<br>
-	{{ system.processor_info }}<br>
-	{{ system.processor_freq }}<br>
-	{{ system.processor_count }}<br>
-	{{ system.total_core_count }}<br>
-	{{ system.total_dimm_count }}<br>
-
-	{% for dimm in system.dimm_set.all %}
-		{{ dimm.manufacturer }}<br>
-		{{ dimm.part_number }}<br>
-	{% endfor %}
-
-	{{ system.dimm_clock_speed }}<br>
-	{{ system.dimm_memory_size }}<br>
-	{{ system.processor_family }}<br>
-	{{ system.hpl_block_size }}<br>
-	{{ system.hpl_problem_size }}<br>
-	{{ system.linpack_theoretical_score }}<br>
-
-	{% for linpack in system.linpack_set.all %}
-		{{ linpack.tester_name }}<br>
-		{{ linpack.N }}<br>
-		{{ linpack.NB }}<br>
-		{{ linpack.PMAP }}<br>
-		{{ linpack.P }}<br>
-		{{ linpack.Q }}<br>
-		{{ linpack.PFACT }}<br>
-		{{ linpack.NBMIN }}<br>
-		{{ linpack.NDIV }}<br>
-		{{ linpack.RFACT }}<br>
-		{{ linpack.BCAST }}<br>
-		{{ linpack.DEPTH }}<br>
-		{{ linpack.SWAP }}<br>
-		{{ linpack.L1 }}<br>
-		{{ linpack.U }}<br>
-		{{ linpack.EQUIL }}<br>
-		{{ linpack.ALIGN }}<br>
-		{{ linpack.actual_GFLOPS }}<br>
-		{{ linpack.given_problem }}<br>
-		{{ linpack.expected_answer }}<br>
-		{{ linpack.answer_result }}<br><br><br>
-	{% endfor %}
-{% endfor %}
--->
