@@ -19,9 +19,26 @@ class System(models.Model):
 	linpack_theoretical_score = models.CharField(max_length=300)
 	date_added = models.DateTimeField('date added')
 
+	# remove 'family' when displaying on table. can refactor with regex
+	@property 
+	def get_processor_family(self):
+		output = self.processor_family.replace('Family', '');
+		return output.replace('family', '');
 
 	@property
-	def dimm_data(self):
+	def get_dimm_memory_size(self):
+		return str("{:.2f}".format(float(self.dimm_memory_size.replace('GB', ''))) + ' GB')
+
+	@property
+	def get_bios_date(self):
+		return self.bios_date.strftime("%m/%d/%Y")
+	
+	@property
+	def get_date_added(self):
+		return self.date_added.strftime("%m/%d/%y; %H:%M")
+
+	@property
+	def get_detailed_dimm_pn_data(self):
 		dimms = self.dimm_set.all()
 
 		dimm_dict = {}
@@ -33,21 +50,50 @@ class System(models.Model):
 			else:
 				dimm_dict[dimm.part_number] += 1
 
-		for i in dimm_dict:
-			output += str(dimm_dict[i]) + ': ' + i + ', '
+		for i in dimm_dict.keys():
+			output += str(dimm_dict[i]) + ': ' + i + '; '
 
 		return output
 
 	@property
-	def linpack_actual_data(self):
-		linpacks = self.linpack_set.all()
+	def get_dimm_pn_data(self):
+		dimms = self.dimm_set.all()
 
+		dimm_set = set()
 		output = ""
 
-		for linpack in linpacks:
-			output += linpack.actual_GFLOPS + ", "
+		for dimm in dimms:
+			dimm_set.add(dimm.part_number)
 
-		return output
+		if len(dimm_set) == 1:
+			return "".join(str(pn) for pn in dimm_set)
+		else:
+			return "; ".join(str(pn) for pn in dimm_set)
+
+	@property
+	def get_dimm_manu_data(self):
+		dimms = self.dimm_set.all()
+
+		dimm_set = set()
+		output = ""
+
+		for dimm in dimms:
+			dimm_set.add(dimm.manufacturer)
+
+		if len(dimm_set) == 1:
+			return "".join(str(man) for man in dimm_set)
+		else:
+			return "; ".join(str(man) for man in dimm_set)
+
+
+	@property
+	def get_linpack_avg_actual_data(self):
+		linpacks = self.linpack_set.all()
+
+		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks]
+		linpack_avg = sum(linpack_actuals) / len(linpack_actuals)
+
+		return str("{:.2f}".format(float(linpack_avg))) + " GFLOPS"
 	
 	def __eq__(self, rhs):
 		if self.motherboard_model == rhs.motherboard_model and \
