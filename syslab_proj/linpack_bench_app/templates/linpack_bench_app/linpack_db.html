@@ -2,16 +2,7 @@
 {% load static %}
 
 {% block metalink %}
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-
-
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="{% static 'linpack_bench_app/css/style.css' %}">
-
-	<script src="{% static 'linpack_bench_app/js/linpack_db.js' %}"></script>
 {% endblock %}
 
 {% block title %}Linpack Data{% endblock %}
@@ -27,7 +18,7 @@
 					<th>Bios</th>
 					<th>IPMI</th>
 					<th>Processor</th>
-					<th>Total DIMMS</th>
+					<th># DIMMS</th>
 					<th>Linpack Theoretical</th>
 					<th>Linpack Score</th>
 					<th>Date</th>
@@ -50,4 +41,17 @@
 		</table>
 	</div>
 
+
+
+
+	<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'linpack_bench_app/css/style.css' %}">
+
+
+	<script src="{% static 'node_modules/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+	<script src="{% static 'linpack_bench_app/js/linpack_db.js' %}"></script>
 {% endblock %}
