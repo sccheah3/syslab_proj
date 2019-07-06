@@ -1,17 +1,23 @@
 {
-  "name": "stanley",
+  "name": "static",
   "version": "1.0.0",
-  "description": "js lib for syslab projects",
+  "description": "js libs for app",
   "main": "index.js",
-  "dependencies": {
-    "datatables.net": "^1.10.19",
-    "datatables.net-dt": "^1.10.19",
-    "jquery": "^3.4.1"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "none"
+  ],
   "author": "stanley",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "datatables.net": "^1.10.19",
+    "datatables.net-bs": "^1.10.19"
+  }
 }
