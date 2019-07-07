@@ -1,6 +1,8 @@
 from django.db import models
 from system_test_app.models import System
 
+import datetime
+
 # Create your models here.
 class Linpack(models.Model):
 	system = models.ForeignKey(System, on_delete=models.CASCADE)
@@ -64,3 +66,7 @@ class Linpack(models.Model):
 
 	def __str__(self):
 		return self.tester_name + ": " + self.answer_result
+
+	@property
+	def get_date_added(self):
+		return self.date_added.strftime("%m/%d/%y; %H:%M")

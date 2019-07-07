@@ -11,7 +11,7 @@
 {% block content %}
 
 	<div id="table-div">
-		<table id="sysinfoTable" class="table table-striped table-bordered" >
+		<table id="sysinfoTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>
 					<th>MB</th>
@@ -32,7 +32,7 @@
 			<tbody>
 				{% for system in systems %}
 				<tr>
-					<td>{{ system.motherboard_model }}</td>
+					<td><a href="{% url 'linpack:detail' system.id %}">{{ system.motherboard_model }}</a></td>
 					<td>{{ system.get_bios_date }}</td>
 					<td>{{ system.ipmi_version }}</td>
 					<td>{{ system.get_processor_family }}</td>
@@ -58,8 +58,6 @@
 
 	<link rel="stylesheet" type="text/css" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'linpack_bench_app/css/style.css' %}">
-
 
 	<script src="{% static 'node_modules/datatables.net/js/jquery.dataTables.min.js' %}"></script>
 	<script src="{% static 'node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>

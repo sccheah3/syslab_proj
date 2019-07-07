@@ -8,11 +8,9 @@ from .forms import UploadFileForm
 from . import parsefile
 import zipfile
 import datetime
-#from django_tables2 import RequestConfig
 
 from system_test_app.models import System, DIMM
 from .models import Linpack
-#from .tables import SystemTable
 
 
 # files < 2.5 MB stored in mem. Files > are stored in a tmp folder
@@ -34,7 +32,6 @@ def upload_zipfile(request):
 				# if directory has same name inside zip file without .zip ext
 				file_without_ext = str(file)
 				file_without_ext = file_without_ext.replace('.zip', '')
-				# print(file_without_ext)
 
 				hpl_filename = get_filename(file_list, file_without_ext, 'HPL.dat')
 				output_filename = get_filename(file_list, file_without_ext, 'output')
@@ -70,7 +67,7 @@ def upload_zipfile(request):
 
 			# print(request.POST['title'])
 
-			return HttpResponse("Success")
+			return HttpResponse("Success\n")
 	else:
 		form = UploadFileForm()
 
@@ -78,14 +75,20 @@ def upload_zipfile(request):
 
 
 def linpack_db(request):
-	#table = SystemTable(System.objects.all())
-	#RequestConfig(request).configure(table)
-
-	#return render(request, 'linpack_bench_app/linpack_db.html', {'table': table})
 	return render(request, 'linpack_bench_app/linpack_db.html', {'systems': System.objects.all()})
 
 def index(request):
 	return HttpResponse("Hello world!")
+
+
+def detail(request, system_id):
+	system = System.objects.get(id=system_id)
+
+	return render(request, 'linpack_bench_app/linpack_detail.html', {
+		'system': system, 
+		'dimms': system.dimm_set.all(),
+		'linpacks': system.linpack_set.all(),
+	})
 
 
 
