@@ -1,4 +1,6 @@
 $(document).ready(function () {
-	$('#sysinfoTable').DataTable();
+	$('#sysinfoTable').DataTable({
+		"order": [[12, "desc"]]
+	});
 	$('.dataTables_length').addClass('bs-select');
 });
