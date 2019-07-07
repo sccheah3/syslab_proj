@@ -1,4 +1,4 @@
-1. create detail page to show all system, dimm, and linpack data
+1. create detail page to show all system, dimm, and linpack data -- DONE
 2. create links to the detail page within linpack_db
 3. clean up formatting for bios and linpack score
 4. add comments to code
