@@ -17,7 +17,8 @@ class System(models.Model):
 	hpl_block_size = models.IntegerField(default=0)
 	hpl_problem_size = models.IntegerField(default=0)
 	linpack_theoretical_score = models.CharField(max_length=300)
-	date_added = models.DateTimeField('date added')
+	date_created = models.DateTimeField('date created')
+	date_modified = models.DateTimeField('date modified')
 
 	# remove 'family' when displaying on table. can refactor with regex
 	@property 
@@ -34,8 +35,12 @@ class System(models.Model):
 		return self.bios_date.strftime("%m/%d/%Y")
 	
 	@property
-	def get_date_added(self):
-		return self.date_added.strftime("%m/%d/%y; %H:%M")
+	def get_date_created(self):
+		return self.date_created.strftime("%m/%d/%y; %H:%M")
+
+	@property
+	def get_date_modified(self):
+		return self.date_modified.strftime("%m/%d/%y; %H:%M")
 
 	@property
 	def get_detailed_dimm_pn_data(self):
@@ -91,9 +96,13 @@ class System(models.Model):
 		linpacks = self.linpack_set.all()
 
 		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks]
-		linpack_avg = sum(linpack_actuals) / len(linpack_actuals)
 
-		return str("{:.2f}".format(float(linpack_avg))) + " GFLOPS"
+		if len(linpack_actuals) != 0:
+			linpack_avg = sum(linpack_actuals) / len(linpack_actuals)
+
+			return str("{:.2f}".format(float(linpack_avg))) + " GFLOPS"
+		else:
+			return "N/A"
 	
 	def __eq__(self, rhs):
 		if self.motherboard_model == rhs.motherboard_model and \
@@ -134,7 +143,7 @@ class DIMM(models.Model):
 	system = models.ForeignKey(System, on_delete=models.CASCADE)
 	manufacturer = models.CharField(max_length=400)
 	part_number = models.CharField(max_length=350)
-	date_added = models.DateTimeField('date added')
+	date_created = models.DateTimeField('date created')
 
 
 	def __eq__(self, rhs):

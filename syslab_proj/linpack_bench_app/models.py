@@ -27,7 +27,7 @@ class Linpack(models.Model):
 	given_problem = models.CharField(max_length=150)
 	expected_answer = models.CharField(max_length=30)
 	answer_result = models.CharField(max_length=20)
-	date_added = models.DateTimeField('date added')
+	date_created = models.DateTimeField('date created')
 
 	def __eq__(self, rhs):
 		if self.tester_name == rhs.tester_name and \
@@ -68,5 +68,5 @@ class Linpack(models.Model):
 		return self.tester_name + ": " + self.answer_result
 
 	@property
-	def get_date_added(self):
-		return self.date_added.strftime("%m/%d/%y; %H:%M")
+	def get_date_created(self):
+		return self.date_created.strftime("%m/%d/%y; %H:%M")

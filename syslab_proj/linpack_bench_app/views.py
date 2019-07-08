@@ -60,6 +60,20 @@ def upload_zipfile(request):
 					save_linpackinfo(system, parsefile.LinpackParser(sysinfo_file, output_file))
 
 
+					# - parsed_system = parsefile.SysInfoParser(sysinfo_file)
+					#system = save_sysinfo(parsefile.SysInfoParser(sysinfo_file))
+
+					# TODO: unable to seek(0). find fix for this
+					# -sysinfo_file.close()
+					# -sysinfo_file = zip_file.open(sysinfo_filename)
+
+					# - parsed_linpack = parsefile.LinpackParser(sysinfo_file, output_file)
+
+					# - if not config_exists(parsed_system, parsed_linpack):
+						# - save_config(parsed_system, parsed_linpack)
+					#save_linpackinfo(system, parsefile.LinpackParser(sysinfo_file, output_file))
+
+
 
 			else:
 				return HttpResponse("Failed: Not a valid zipfile.")
@@ -93,6 +107,10 @@ def detail(request, system_id):
 
 
 # utility functions
+
+def config_exists(parsed_system, parsed_linpack):
+	pass # use System.objects.filter(...)
+
 def file_exists(filename_list, filename):
 	if (filename in filename_list):
 		return True
@@ -124,7 +142,8 @@ def save_sysinfo(sysinfo):
 				    hpl_block_size = sysinfo.HPL_block_size, \
 				    hpl_problem_size = sysinfo.HPL_problem_size, \
 				    linpack_theoretical_score = sysinfo.linpack_theoretical_GFLOPS, \
-					date_added = timezone.now())
+					date_created = timezone.now(), \
+					date_modified = timezone.now())
 
 	system.save()
 
@@ -132,7 +151,7 @@ def save_sysinfo(sysinfo):
 		for i in range(len(sysinfo.dimm_manu_list)):
 			system.dimm_set.create(manufacturer = sysinfo.dimm_manu_list[i], \
 								   part_number = sysinfo.dimm_PN_list[i], \
-								   date_added = timezone.now())
+								   date_created = timezone.now())
 
 	system.save()
 
@@ -163,6 +182,6 @@ def save_linpackinfo(system, linpack_info):
 							  given_problem = linpack_info.given_problem, \
 							  expected_answer = linpack_info.expected_answer, \
 							  answer_result = linpack_info.answer_result,\
-							  date_added = timezone.now())
+							  date_created = timezone.now())
 
 	system.save()

@@ -44,7 +44,7 @@
 					<td>{{ system.dimm_clock_speed }}</td>
 					<td>{{ system.linpack_theoretical_score }}</td>
 					<td>{{ system.get_linpack_avg_actual_data }}</td>
-					<td>{{ system.get_date_added }}</td>
+					<td>{{ system.get_date_modified }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -58,6 +58,7 @@
 
 	<link rel="stylesheet" type="text/css" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'linpack_bench_app/css/style.css' %}">
 
 	<script src="{% static 'node_modules/datatables.net/js/jquery.dataTables.min.js' %}"></script>
 	<script src="{% static 'node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
