@@ -2,8 +2,7 @@
 2. create links to the detail page within linpack_db -- DONE
 3. clean up formatting for bios and linpack score -- DONE
 4. add comments to code
-5. need to get linpack avg score to display on main table. show all on details table -- DONE
-6. deal with duplicate parsing
+5. deal with duplicate parsing
 	- verify details page with diff linpack & same linpack
-7. Refactor
+7. Refactor -- DONE
 	-file upload. handle in separate module
