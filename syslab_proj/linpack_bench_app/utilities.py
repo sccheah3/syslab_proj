@@ -161,8 +161,11 @@ def get_dimm_system_match(systems, parsed_system):
 			if (i == 0) and (len(dimms) != len(dimm_manu_list)):
 				break
 
-			dimm_manu_list.remove(dimms[i].manufacturer)
-			dimm_PN_list.remove(dimms[i].part_number)
+			try:
+				dimm_manu_list.remove(dimms[i].manufacturer)
+				dimm_PN_list.remove(dimms[i].part_number)
+			except ValueError:
+				pass
 
 		if len(dimm_manu_list) == 0 and len(dimm_PN_list) == 0:
 			return system
