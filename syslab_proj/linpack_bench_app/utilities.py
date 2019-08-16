@@ -25,9 +25,11 @@ def zipfile_handler(file):
 	if hpl_filename == -1 or output_filename == -1 or sysinfo_filename == -1:
 		return HttpResponse("Failed: File(s) is missing from zip")
 
-	parse_zipfile(file, sysinfo_filename, hpl_filename, output_filename)
+	parsed_system, parsed_linpack = parse_zipfile(file, sysinfo_filename, hpl_filename, output_filename)
+	save_config(parsed_system, parsed_linpack)
 
 
+# gets the path to each file. Sometimes zip files have a dir with same base name as zip file
 def get_rel_filename(file, file_list, base_name):
 	file_without_ext = str(file)
 	file_without_ext = file_without_ext.replace('.zip', '')
@@ -40,21 +42,24 @@ def get_rel_filename(file, file_list, base_name):
 
 	return -1
 
-
+# parse files and return tuple of parsed objects
 def parse_zipfile(file, sysinfo_filename, hpl_filename, output_filename):
 	with zipfile.ZipFile(file) as zip_file:
 		sysinfo_file = zip_file.open(sysinfo_filename)
 		hpl_file = zip_file.open(hpl_filename)
 		output_file = zip_file.open(output_filename)
 
-		system = save_sysinfo(parsefile.SysInfoParser(sysinfo_file))
+		parsed_system = parsefile.SysInfoParser(sysinfo_file)
 
 		sysinfo_file.close()
 		sysinfo_file = zip_file.open(sysinfo_filename)
 
-		save_linpackinfo(system, parsefile.LinpackParser(sysinfo_file, output_file))
+		parsed_linpack = parsefile.LinpackParser(sysinfo_file, output_file)
+
+		return (parsed_system, parsed_linpack)
 
 
+# saves the system info and dimm into DB
 def save_sysinfo(sysinfo):
 	formatted_bios_date = datetime.datetime.strptime(sysinfo.bios_date, "%m/%d/%Y").strftime("%Y-%m-%d")
 	
@@ -87,7 +92,7 @@ def save_sysinfo(sysinfo):
 
 	return system
 
-
+# saves linpack info associated with system to DB
 def save_linpackinfo(system, linpack_info):
 
 	system.linpack_set.create(tester_name = linpack_info.tester_name, \
@@ -116,14 +121,12 @@ def save_linpackinfo(system, linpack_info):
 	system.save()
 
 
-def config_exists(parsed_system, parsed_linpack):
-	pass # use System.objects.filter(...)
-
-	# check to see if there's an existing System entry with this config
+# check to see if there's an existing System entry with this config
+# @return system or False
+def get_existing_config(parsed_system):
 	systems = System.objects.filter(
 				motherboard_model = parsed_system.motherboard, \
 				bios_date = datetime.datetime.strptime(parsed_system.bios_date, "%m/%d/%Y").strftime("%Y-%m-%d"), \
-				ipmi_version = parsed_system.ipmi_version, \
 				processor_info = parsed_system.processor, \
 				processor_freq = parsed_system.processor_freq, \
 				processor_count = parsed_system.processor_count, \
@@ -131,77 +134,49 @@ def config_exists(parsed_system, parsed_linpack):
 				total_dimm_count = parsed_system.dimm_count, \
 				dimm_clock_speed = parsed_system.dimm_freq, \
 				dimm_memory_size = parsed_system.dimm_total_mem_size, \
-				processor_family = parsed_system.processor_family, \
-				hpl_block_size = parsed_system.HPL_block_size, \
-				hpl_problem_size = parsed_system.HPL_problem_size, \
-				linpack_theoretical_score = parsed_system.linpack_theoretical_GFLOPS
+				processor_family = parsed_system.processor_family
 			 )
 
-	# check if 
+	# check if any matches
 	if not systems:
-		return False
-	else:
-		# check dimm config
-		for system in systems:
-			dimm_map = {}
-			dimm_match = True
+		return None
+	
+	# will return system if dimm config exists, else return none
+	return get_dimm_system_match(systems, parsed_system)
 
-			# get counts for each PN
-			for pn in parsed_system.dimm_PN_list:
-				if pn in dimm_map:
-					dimm_map[pn] += 1
-				else:
-					dimm_map[pn] = 1
 
-			for dimm in system.dimm_set.all():
-				if dimm.part_number not in dimm_map:
-					break
-				else:
-					dimm_map[dimm.part_number] -= 1
+# searches through systems for matching dimm config with parsed system
+# @return system match
+def get_dimm_system_match(systems, parsed_system):
+	if systems is None: 
+		return
 
-			for pn in dimm_map:
-				if dimm_map[pn] != 0:
-					dimm_match = False
-					break
+	for system in systems:
+		dimms = system.dimm_set.all()
 
-			if not dimm_match:
-				continue
-			else:
-				linpack_match = False
-				# check for linpack config
-				for linpack in system.linpack_set.all():
-					if (linpack.tester_name == parsed_linpack.tester_name, \
-					  	linpack.N == parsed_linpack.N, \
-					  	linpack.NB == parsed_linpack.NB, \
-					  	linpack.PMAP == parsed_linpack.PMAP, \
-					  	linpack.P == parsed_linpack.P, \
-						linpack.Q == parsed_linpack.Q, \
-						linpack.PFACT == parsed_linpack.PFACT, \
-						linpack.NBMIN == parsed_linpack.NBMIN, \
-						linpack.NDIV == parsed_linpack.NDIV, \
-						linpack.RFACT == parsed_linpack.RFACT, \
-						linpack.BCAST == parsed_linpack.BCAST, \
-						linpack.DEPTH == parsed_linpack.DEPTH, \
-						linpack.SWAP == parsed_linpack.SWAP, \
-						linpack.L1 == parsed_linpack.L1, \
-						linpack.U == parsed_linpack.U, \
-						linpack.EQUIL == parsed_linpack.EQUIL, \
-						linpack.ALIGN == parsed_linpack.ALIGN, \
-						linpack.actual_GFLOPS == parsed_linpack.actual_GFLOPS, \
-						linpack.given_problem == parsed_linpack.given_problem, \
-						linpack.expected_answer == parsed_linpack.expected_answer, \
-						linpack.answer_result == parsed_linpack.answer_result):	
+		dimm_manu_list = parsed_system.dimm_manu_list[:]
+		dimm_PN_list = parsed_system.dimm_PN_list[:]
 
-						linpack_match = True
-						break
+		for i in range(0, len(dimms)):
+			if (i == 0) and (len(dimms) != len(dimm_manu_list)):
+				break
 
-				if not linpack_match:
-					save_linpackinfo(system, parsed_linpack)
+			dimm_manu_list.remove(dimms[i].manufacturer)
+			dimm_PN_list.remove(dimms[i].part_number)
 
-				return True
+		if len(dimm_manu_list) == 0 and len(dimm_PN_list) == 0:
+			return system
 
-	return False
+	return None
 
+
+
+# saves the parsed system whether it is new entry or appended linpack score
 def save_config(parsed_system, parsed_linpack):
-	system = save_sysinfo(parsed_system)
-	save_linpackinfo(system, parsed_linpack)
+	system = get_existing_config(parsed_system)
+
+	if system:
+		save_linpackinfo(system, parsed_linpack)
+	else:
+		system = save_sysinfo(parsed_system)
+		save_linpackinfo(system, parsed_linpack)
