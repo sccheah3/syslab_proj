@@ -12,28 +12,28 @@
 			<thead>
 				<tr>
 					<th>MB</th>
-					<th>BIOS</th>
-					<th>IPMI</th>
 					<th>Processor Family</th>
 					<th>Processor</th>
 					<th>Processor Freq.</th>
 					<th>Total Cores</th>
 					<th>DIMM Size</th>
 					<th>DIMM Freq.</th>
+					<th>BIOS</th>
+					<th>IPMI</th>
 					<th>Date</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>{{ system.motherboard_model }}</td>
-					<td>{{ system.get_bios_date }}</td>
-					<td>{{ system.ipmi_version }}</td>
 					<td>{{ system.get_processor_family }}</td>
 					<td>{{ system.processor_info }}</td>
 					<td>{{ system.dimm_clock_speed }}</td>
 					<td>{{ system.total_core_count }}</td>
 					<td>{{ system.dimm_memory_size }}</td>
 					<td>{{ system.dimm_clock_speed }}</td>
+					<td>{{ system.get_bios_date }}</td>
+					<td>{{ system.ipmi_version }}</td>
 					<td>{{ system.get_date_created }}</td>
 				</tr>
 			</tbody>
@@ -66,6 +66,11 @@
 			<thead>
 				<tr>
 					<th>Tester</th>
+					<th>Score</th>
+					<th>Theoretical GFLOPS</th>
+					<th>Expected Answer</th>
+					<th>Answer</th>
+					<th>Problem</th>
 					<th>N</th>
 					<th>NB</th>
 					<th>PMAP</th>
@@ -84,11 +89,6 @@
 					<th>ALIGN</th>
 					<th>HPL Block Size</th>
 					<th>HPL Problem Size</th>
-					<th>Problem</th>
-					<th>Expected Answer</th>
-					<th>Answer</th>
-					<th>Theoretical GFLOPS</th>
-					<th>Score</th>
 					<th>Date</th>
 				</tr>
 			</thead>
@@ -96,6 +96,11 @@
 				{% for linpack in linpacks %}
 				<tr>
 					<td>{{ linpack.tester_name }}</td>
+					<td>{{ linpack.actual_GFLOPS }}</td>
+					<td>{{ system.linpack_theoretical_score }}</td>
+					<td>{{ linpack.expected_answer }}</td>
+					<td>{{ linpack.answer_result }}</td>
+					<td>{{ linpack.given_problem }}</td>
 					<td>{{ linpack.N }}</td>
 					<td>{{ linpack.NB }}</td>
 					<td>{{ linpack.PMAP }}</td>
@@ -114,11 +119,6 @@
 					<td>{{ linpack.ALIGN }}</td>
 					<td>{{ system.hpl_block_size }}</td>
 					<td>{{ system.hpl_problem_size }}</td>
-					<td>{{ linpack.given_problem }}</td>
-					<td>{{ linpack.expected_answer }}</td>
-					<td>{{ linpack.answer_result }}</td>
-					<td>{{ system.linpack_theoretical_score }}</td>
-					<td>{{ linpack.actual_GFLOPS }}</td>
 					<td>{{ linpack.get_date_created }}</td>
 				</tr>
 				{% endfor %}

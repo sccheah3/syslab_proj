@@ -15,8 +15,7 @@
 			<thead>
 				<tr>
 					<th>MB</th>
-					<th>BIOS</th>
-					<th>IPMI</th>
+					<th>AVG Linpack Score</th>
 					<th>Processor Family</th>
 					<th>Processor</th>
 					<th>DIMM Manufacturer</th>
@@ -25,7 +24,8 @@
 					<th>DIMM Size</th>
 					<th>DIMM Freq.</th>
 					<th>Linpack Theoretical</th>
-					<th>AVG Linpack Score</th>
+					<th>BIOS</th>
+					<th>IPMI</th>
 					<th>Date</th>
 				</tr>
 			</thead>
@@ -33,8 +33,7 @@
 				{% for system in systems %}
 				<tr>
 					<td><a href="{% url 'linpack:detail' system.id %}">{{ system.motherboard_model }}</a></td>
-					<td>{{ system.get_bios_date }}</td>
-					<td>{{ system.ipmi_version }}</td>
+					<td>{{ system.get_linpack_avg_actual_data }}</td>
 					<td>{{ system.get_processor_family }}</td>
 					<td>{{ system.processor_info }}</td>
 					<td>{{ system.get_dimm_manu_data }}</td>
@@ -43,7 +42,8 @@
 					<td>{{ system.get_dimm_memory_size }}</td>
 					<td>{{ system.dimm_clock_speed }}</td>
 					<td>{{ system.linpack_theoretical_score }}</td>
-					<td>{{ system.get_linpack_avg_actual_data }}</td>
+					<td>{{ system.get_bios_date }}</td>
+					<td>{{ system.ipmi_version }}</td>
 					<td>{{ system.get_date_modified }}</td>
 				</tr>
 				{% endfor %}
