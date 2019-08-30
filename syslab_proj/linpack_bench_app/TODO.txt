@@ -5,4 +5,7 @@
 5. deal with duplicate parsing
 	- verify details page with diff linpack & same linpack
 7. Refactor -- DONE
-	-file upload. handle in separate module
+	-file upload. handle in separate module -- DONE
+8. Add chart
+	- select from main db page via checkmark
+	- show auto for details page
