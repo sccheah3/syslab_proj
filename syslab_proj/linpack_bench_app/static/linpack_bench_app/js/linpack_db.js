@@ -10,7 +10,8 @@
 
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
-    $('tfoot th').each( function () {
+    //$('tfoot th').each( function () {
+    $('.searchFilter').each( function () {
         var title = $(this).text();
         $(this).html( '<input type="text" style="text-align:center; width:100px" placeholder="' + title +'" />' );
     } );

@@ -14,6 +14,7 @@
 		<table id="sysinfoTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>
+					<th></th>
 					<th>MB</th>
 					<th>AVG Linpack Score</th>
 					<th>Processor Family</th>
@@ -32,6 +33,7 @@
 			<tbody>
 				{% for system in systems %}
 				<tr>
+					<td><input type="checkbox"></td>
 					<td><a href="{% url 'linpack:detail' system.id %}">{{ system.motherboard_model }}</a></td>
 					<td>{{ system.get_linpack_avg_actual_data }}</td>
 					<td>{{ system.get_processor_family }}</td>
@@ -50,19 +52,20 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<th>MB</th>
-					<th>AVG Lin Score</th>
-					<th>Proc. Family</th>
-					<th>Proc.</th>
-					<th>DIMM Manu.</th>
-					<th>DIMM PN</th>
-					<th># DIMMS</th>
-					<th>DIMM Size</th>
-					<th>DIMM Freq.</th>
-					<th>Lin Theo.</th>
-					<th>BIOS</th>
-					<th>IPMI</th>
-					<th>Date</th>
+					<th></th>
+					<th class="searchFilter">MB</th>
+					<th class="searchFilter">AVG Lin Score</th>
+					<th class="searchFilter">Proc. Family</th>
+					<th class="searchFilter">Proc.</th>
+					<th class="searchFilter">DIMM Manu.</th>
+					<th class="searchFilter">DIMM PN</th>
+					<th class="searchFilter"># DIMMS</th>
+					<th class="searchFilter">DIMM Size</th>
+					<th class="searchFilter">DIMM Freq.</th>
+					<th class="searchFilter">Lin Theo.</th>
+					<th class="searchFilter">BIOS</th>
+					<th class="searchFilter">IPMI</th>
+					<th class="searchFilter">Date</th>
 				</tr>
 			</tfoot>
 		</table>
