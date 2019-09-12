@@ -34,6 +34,16 @@ def upload_zipfile(request):
 	return render(request, 'linpack_bench_app/upload.html', {'form': form})
 
 
+def performance_comparison(request):
+	res = []
+
+	for key in request.POST:
+		if key.startswith('system'):
+			res.append(key)
+
+	#return HttpResponse(str(res))
+	return HttpResponse(request.POST.get(res[0]))
+
 def linpack_db(request):
 	return render(request, 'linpack_bench_app/linpack_db.html', {'systems': System.objects.all()})
 
