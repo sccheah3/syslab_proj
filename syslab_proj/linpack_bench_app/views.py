@@ -35,14 +35,19 @@ def upload_zipfile(request):
 
 
 def performance_comparison(request):
-	res = []
+	sys_names = []
 
+	# get form names we want from POST 
 	for key in request.POST:
 		if key.startswith('system'):
-			res.append(key)
+			sys_names.append(key)
 
-	#return HttpResponse(str(res))
-	return HttpResponse(request.POST.get(res[0]))
+	# query DB to get list of systems to compare
+	systems = []
+	for key in sys_names:
+		systems.append(System.objects.get(pk=request.POST.get(key)))
+
+	return render(request, 'linpack_bench_app/performance_comparison.html', {'systems': systems})
 
 def linpack_db(request):
 	return render(request, 'linpack_bench_app/linpack_db.html', {'systems': System.objects.all()})

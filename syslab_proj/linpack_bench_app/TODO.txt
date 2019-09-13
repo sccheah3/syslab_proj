@@ -9,3 +9,5 @@
 8. Add chart
 	- select from main db page via checkmark
 	- show auto for details page
+	- make checkbox bigger and prettier
+	- show system info on chart page

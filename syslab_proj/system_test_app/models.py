@@ -20,6 +20,11 @@ class System(models.Model):
 	date_created = models.DateTimeField('date created')
 	date_modified = models.DateTimeField('date modified')
 
+
+	@property 
+	def get_motherboard_model(self):
+		return str(self.motherboard_model)
+
 	# remove 'family' when displaying on table. can refactor with regex
 	@property 
 	def get_processor_family(self):
@@ -90,6 +95,39 @@ class System(models.Model):
 		else:
 			return "; ".join(str(man) for man in dimm_set)
 
+
+	@property 
+	def get_linpack_highest_actual(self):
+		linpacks = self.linpack_set.all()
+		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks]
+
+		if len(linpack_actuals) != 0:
+			return '{0:.3f}'.format(max(linpack_actuals))
+		else:
+			return None
+
+	@property 
+	def get_linpack_lowest_actual(self):
+		linpacks = self.linpack_set.all()
+		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks]
+
+		if len(linpack_actuals) != 0:
+			return '{0:.3f}'.format(min(linpack_actuals))
+		else:
+			return None
+
+	@property
+	def get_linpack_avg_actual(self):
+		linpacks = self.linpack_set.all()
+
+		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks]
+
+		if len(linpack_actuals) != 0:
+			linpack_avg = sum(linpack_actuals) / len(linpack_actuals)
+
+			return '{0:.3f}'.format(linpack_avg)
+		else:
+			return None
 
 	@property
 	def get_linpack_avg_actual_data(self):
