@@ -29,6 +29,10 @@ class Linpack(models.Model):
 	answer_result = models.CharField(max_length=20)
 	date_created = models.DateTimeField('date created')
 
+	@property 
+	def get_linpack_score(self):
+		return '{0:.3f}'.format(float(self.actual_GFLOPS))
+
 	def __eq__(self, rhs):
 		if self.tester_name == rhs.tester_name and \
 		   self.N == rhs.N and \

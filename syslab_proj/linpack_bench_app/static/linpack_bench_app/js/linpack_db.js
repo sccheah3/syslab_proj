@@ -1,16 +1,4 @@
-/*$(document).ready(function () {
-	var systable = $('#sysinfoTable').DataTable({
-		"order": [[12, "desc"]]
-	});
-	$('.dataTables_length').addClass('bs-select');
-	console.log(systable.search())
-	console.log("hi")
-});
-*/
-
 $(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    //$('tfoot th').each( function () {
     $('.searchFilter').each( function () {
         var title = $(this).text();
         $(this).html( '<input type="text" style="text-align:center; width:100px" placeholder="' + title +'" />' );
@@ -18,7 +6,7 @@ $(document).ready(function() {
  
     // DataTable
     var table = $('#sysinfoTable').DataTable({
-		"order": [[12, "desc"]]
+		"order": [[13, "desc"]]
 	});
 	$('.dataTables_length').addClass('bs-select');
  

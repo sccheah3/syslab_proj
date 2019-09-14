@@ -31,9 +31,19 @@ class System(models.Model):
 		output = self.processor_family.replace('Family', '');
 		return output.replace('family', '');
 
+	@ property
+	def get_processor_info(self):
+		return str(self.processor_info)
+		 
+
 	@property
 	def get_dimm_memory_size(self):
 		return str("{:.2f}".format(float(self.dimm_memory_size.replace('GB', ''))) + ' GB')
+
+	@property
+	def get_dimm_freq(self):
+		return str(self.dimm_clock_speed)
+	
 
 	@property
 	def get_bios_date(self):

@@ -7,7 +7,13 @@
 7. Refactor -- DONE
 	-file upload. handle in separate module -- DONE
 8. Add chart
-	- select from main db page via checkmark
-	- show auto for details page
-	- make checkbox bigger and prettier
-	- show system info on chart page
+	- select from main db page via checkmark - DONE
+	- show auto for details page - DONE
+	- make checkbox bigger and prettier - DONE
+	- show system info on chart page - DONE
+	- include # cpu and dimm/channel, linpack version
+	- update profiler script, linpack version
+	- move google charts lib to local - unable, will violate google's terms of service
+9. User Auth
+	- allow users with permission to delete entries - admin site
+10. Test
