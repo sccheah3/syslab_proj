@@ -17,3 +17,4 @@
 9. User Auth
 	- allow users with permission to delete entries - admin site
 10. Test
+11. clean up admin site
