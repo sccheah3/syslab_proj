@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metalink %}
+{% endblock %}
+
+{% block title %}Linpack{% endblock %}
+
+
+{% block content %}
+
+<div>
+	<a href="{% url 'linpack:linpack_systems' %}">System Menu</a>
+	<br>
+	<a href="{% url 'linpack:linpacks' %}">Linpack Runs</a>
+	<br>
+	<a href="{% url 'linpack:upload_zipfile' %}">Upload zipfile</a>
+</div>
+
+{% endblock %}

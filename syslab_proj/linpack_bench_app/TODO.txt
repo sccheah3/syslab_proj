@@ -1,20 +1,20 @@
-1. create detail page to show all system, dimm, and linpack data -- DONE
-2. create links to the detail page within linpack_db -- DONE
-3. clean up formatting for bios and linpack score -- DONE
 4. add comments to code
 5. deal with duplicate parsing
-	- verify details page with diff linpack & same linpack
-7. Refactor -- DONE
-	-file upload. handle in separate module -- DONE
+	- change duplicate comparison. proc model, num proc, dimm model, # dimms, dimm/channel populated; sys_test automation only concerned with giving report
+6. remove failed linpacks from calculations
+	- checked != PASSED
+7. Refactor
 8. Add chart
-	- select from main db page via checkmark - DONE
-	- show auto for details page - DONE
-	- make checkbox bigger and prettier - DONE
-	- show system info on chart page - DONE
 	- include # cpu and dimm/channel, linpack version
 	- update profiler script, linpack version
-	- move google charts lib to local - unable, will violate google's terms of service
+	- charts lib to local - unable, will violate google's terms of service
+	- fix formatting of title when hover over bar
+	- make chart size and file formatting more dynamic
+
+8.1 Show table of all linpack runs, create new page
 9. User Auth
-	- allow users with permission to delete entries - admin site
+	- use mostly for grouping automation tests
+9.1 Admin
+	- clean up admin site (better details)
 10. Test
-11. clean up admin site
+11. links on all pages to other pages

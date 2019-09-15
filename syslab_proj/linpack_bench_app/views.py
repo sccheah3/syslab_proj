@@ -49,17 +49,20 @@ def performance_comparison(request):
 
 	return render(request, 'linpack_bench_app/performance_comparison.html', {'systems': systems})
 
-def linpack_db(request):
-	return render(request, 'linpack_bench_app/linpack_db.html', {'systems': System.objects.all()})
+def linpack_systems(request):
+	return render(request, 'linpack_bench_app/linpack_systems.html', {'systems': System.objects.all()})
 
 def index(request):
-	return HttpResponse("Hello world!")
+	return render(request, 'linpack_bench_app/index.html', {})
+
+def linpacks(request):
+	return render(request, 'linpack_bench_app/linpacks.html', {'linpacks': Linpack.objects.all()})
 
 
 def detail(request, system_id):
 	system = System.objects.get(id=system_id)
 
-	return render(request, 'linpack_bench_app/linpack_detail.html', {
+	return render(request, 'linpack_bench_app/linpack_systems_detail.html', {
 		'system': system, 
 		'dimms': system.dimm_set.all(),
 		'linpacks': system.linpack_set.all(),
