@@ -3,7 +3,8 @@
 
 {% block metalink %}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'linpack_bench_app/css/linpack_detail.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'linpack_bench_app/css/linpack_detail.css' %}">
 
 {% endblock %}
 
@@ -51,12 +52,14 @@
       {% endfor %}
     </tbody>
   </table>
-</div>
+<!-- </div>
 <div id="performance_bar_chart" style="margin-left: 15%; margin-top: 3%; margin-bottom: 10%;">
 <div id="barchart_material" style="width: 1250px; height: 600px;"></div>
-</div>
+</div> -->
+
+<div id="chart_div" style="width: 1250px; height: 600px;"></div>
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
+      /*google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
       var graph_arr = []
@@ -84,7 +87,38 @@
         var chart = new google.charts.Bar(document.getElementById('barchart_material'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
+      }*/
+
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawBasic);
+
+    function drawBasic() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['City', '2010 Population',{role: 'tooltip'}],
+        ['New York City, NY', 8175000, 2345],
+        ['Los Angeles, CA', 3792000, 2345],
+        ['Chicago, IL', 2695000, 2345],
+        ['Houston, TX', 2099000, 2345],
+        ['Philadelphia, PA', 1526000, 2345]
+      ]);
+
+      var options = {
+        title: 'Population of Largest U.S. Cities',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Total Population',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'City'
+        }
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
 </script>
 
 <script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
