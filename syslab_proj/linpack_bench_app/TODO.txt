@@ -8,7 +8,7 @@
 	- include # cpu and dimm/channel, linpack version
 	- update profiler script, linpack version
 	- charts lib to local - unable, will violate google's terms of service
-	- fix formatting of title when hover over bar
+	- fix formatting of title when hover over bar -- DONE
 	- make chart size and file formatting more dynamic
 
 8.1 Show table of all linpack runs, create new page

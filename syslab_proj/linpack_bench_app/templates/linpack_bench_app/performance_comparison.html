@@ -52,67 +52,33 @@
       {% endfor %}
     </tbody>
   </table>
-<!-- </div>
+
 <div id="performance_bar_chart" style="margin-left: 15%; margin-top: 3%; margin-bottom: 10%;">
-<div id="barchart_material" style="width: 1250px; height: 600px;"></div>
-</div> -->
-
 <div id="chart_div" style="width: 1250px; height: 600px;"></div>
+</div>
 <script type="text/javascript">
-      /*google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      var graph_arr = []
-      graph_arr.push(['System', 'Highest', 'Average', 'Lowest'])
-
-      {% for system in systems %}
-        graph_arr.push(["{{ system.motherboard_model }}\n{{ system.get_processor_info }}\nDIMM: {{ system.get_dimm_freq }}", parseFloat("{{ system.get_linpack_highest_actual }}"), parseFloat("{{ system.get_linpack_avg_actual }}"), parseFloat("{{ system.get_linpack_lowest_actual }}")])
-      {% endfor %}
-
-      console.log(graph_arr)
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(graph_arr);
-
-        var options = {
-          chart: {
-            title: 'System Performance',
-          },
-          hAxis: {
-              title: 'GFLOPS'
-          },
-          bars: 'horizontal' // Required for Material Bar Charts.
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }*/
-
     google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(drawBasic);
+    google.charts.setOnLoadCallback(drawChart);    
 
-    function drawBasic() {
-
+    function drawChart() {
       var data = google.visualization.arrayToDataTable([
-        ['City', '2010 Population',{role: 'tooltip'}],
-        ['New York City, NY', 8175000, 2345],
-        ['Los Angeles, CA', 3792000, 2345],
-        ['Chicago, IL', 2695000, 2345],
-        ['Houston, TX', 2099000, 2345],
-        ['Philadelphia, PA', 1526000, 2345]
+        ['System', 'Highest', 'Average', 'Lowest'], // include {role: 'tooltip'} for modify popup over bar graph
+        {% for system in systems %}
+          ["{{ system.motherboard_model }}\n{{ system.get_processor_info }}\nDIMM: {{ system.get_dimm_freq }}", parseFloat("{{ system.get_linpack_highest_actual }}"), parseFloat("{{ system.get_linpack_avg_actual }}"), parseFloat("{{ system.get_linpack_lowest_actual }}")],
+        {% endfor %}
       ]);
 
       var options = {
-        title: 'Population of Largest U.S. Cities',
+        title: 'System Performance',
         chartArea: {width: '50%'},
         hAxis: {
-          title: 'Total Population',
+          title: 'GFLOPS',
           minValue: 0
         },
         vAxis: {
-          title: 'City'
-        }
+          title: 'System'
+        },
+        bar: 'horizontal'
       };
 
       var chart = new google.visualization.BarChart(document.getElementById('chart_div'));

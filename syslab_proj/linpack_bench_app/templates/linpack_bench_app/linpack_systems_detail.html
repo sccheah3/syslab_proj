@@ -125,43 +125,43 @@
 			{% endfor %}
 		</tbody>
 	</table>
-
 </div>
-	<div id="performance_bar_chart" style="margin-left: 15%; margin-top: 3%; margin-bottom: 10%;">
-	<div id="barchart_material" style="width: 1250px; height: 600px;"></div>
+
+<div id="performance_bar_chart" style="margin-left: 15%; margin-top: 3%; margin-bottom: 10%;">
+	<div id="chart_div" style="width: 1250px; height: 600px;"></div>
 </div>
 
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawChart);    
 
-      var graph_arr = []
-      graph_arr.push(['Linpack Runs', 'Score'])
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+      	['Linpack Runs', 'Score'],
+      	["Average", parseFloat("{{ system.get_linpack_avg_actual }}")],
+      	{% for linpack in linpacks %}
+        	["{{ forloop.counter }}: {{ linpack.tester_name }}", parseFloat("{{ linpack.get_linpack_score }}")], 
+      	{% endfor %}
 
-      graph_arr.push(["Average", parseFloat("{{ system.get_linpack_avg_actual }}")])
-      {% for linpack in linpacks %}
-        graph_arr.push(["{{ forloop.counter }}: {{ linpack.tester_name }}", parseFloat("{{ linpack.get_linpack_score }}")]) 
-      {% endfor %}
+      ]);
 
-      console.log(graph_arr)
+      var options = {
+        title: 'CPU Performance',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'GFLOPS',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Linpack Runs'
+        },
+        bar: 'horizontal'
+      };
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(graph_arr);
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 
-        var options = {
-          chart: {
-            title: 'CPU Performance',
-          },
-          hAxis: {
-              title: 'GFLOPS'
-          },
-          bars: 'horizontal' // Required for Material Bar Charts.
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
+      chart.draw(data, options);
+    }
 </script>
 
 <script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
