@@ -62,3 +62,8 @@
 <script src="{% static 'node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
 <script src="{% static 'linpack_bench_app/js/linpacks.js' %}"></script>
 {% endblock %}
+
+
+{% block footer %}
+  <a href="{% url 'linpack:index' %}">Menu</a>
+{% endblock %}

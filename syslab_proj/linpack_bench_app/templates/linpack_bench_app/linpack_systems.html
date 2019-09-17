@@ -86,3 +86,8 @@
 <script src="{% static 'linpack_bench_app/js/linpack_db.js' %}"></script>
 
 {% endblock %}
+
+
+{% block footer %}
+  <a href="{% url 'linpack:index' %}">Menu</a>
+{% endblock %}

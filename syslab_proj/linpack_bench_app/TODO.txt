@@ -11,7 +11,7 @@
 	- fix formatting of title when hover over bar -- DONE
 	- make chart size and file formatting more dynamic
 
-8.1 Show table of all linpack runs, create new page
+8.1 Show table of all linpack runs, create new page -- DONE
 9. User Auth
 	- use mostly for grouping automation tests
 9.1 Admin
