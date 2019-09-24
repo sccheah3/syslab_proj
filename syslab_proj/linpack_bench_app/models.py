@@ -31,7 +31,11 @@ class Linpack(models.Model):
 
 	@property 
 	def get_linpack_score(self):
-		return '{0:.3f}'.format(float(self.actual_GFLOPS))
+		if self.answer_result.lower() == "passed":
+			return '{0:.3f}'.format(float(self.actual_GFLOPS))
+		else:
+			return None
+
 
 	# def __eq__(self, rhs):
 	# 	if self.tester_name == rhs.tester_name and \

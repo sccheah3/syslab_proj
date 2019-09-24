@@ -1,7 +1,7 @@
 4. add comments to code
 5. deal with duplicate parsing
 	- change duplicate comparison. proc model, num proc, dimm model, # dimms, dimm/channel populated; sys_test automation only concerned with giving report
-6. remove failed linpacks from calculations
+6. remove failed linpacks from calculations -- DONE
 	- checked != PASSED
 7. Refactor
 8. Add chart

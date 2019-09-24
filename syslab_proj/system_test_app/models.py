@@ -109,7 +109,7 @@ class System(models.Model):
 	@property 
 	def get_linpack_highest_actual(self):
 		linpacks = self.linpack_set.all()
-		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks]
+		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks if (linpack.answer_result.lower() == "passed")]
 
 		if len(linpack_actuals) != 0:
 			return '{0:.3f}'.format(max(linpack_actuals))
@@ -119,7 +119,7 @@ class System(models.Model):
 	@property 
 	def get_linpack_lowest_actual(self):
 		linpacks = self.linpack_set.all()
-		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks]
+		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks if (linpack.answer_result.lower() == "passed")]
 
 		if len(linpack_actuals) != 0:
 			return '{0:.3f}'.format(min(linpack_actuals))
@@ -130,7 +130,7 @@ class System(models.Model):
 	def get_linpack_avg_actual(self):
 		linpacks = self.linpack_set.all()
 
-		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks]
+		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks if (linpack.answer_result.lower() == "passed")]
 
 		if len(linpack_actuals) != 0:
 			linpack_avg = sum(linpack_actuals) / len(linpack_actuals)
@@ -143,7 +143,7 @@ class System(models.Model):
 	def get_linpack_avg_actual_data(self):
 		linpacks = self.linpack_set.all()
 
-		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks]
+		linpack_actuals = [float(linpack.actual_GFLOPS) for linpack in linpacks if (linpack.answer_result.lower() == "passed")]
 
 		if len(linpack_actuals) != 0:
 			linpack_avg = sum(linpack_actuals) / len(linpack_actuals)
