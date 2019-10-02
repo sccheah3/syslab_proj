@@ -151,35 +151,6 @@ class System(models.Model):
 			return str("{:.2f}".format(float(linpack_avg))) + " GFLOPS"
 		else:
 			return "N/A"
-	
-	# def __eq__(self, rhs):
-	# 	if self.motherboard_model == rhs.motherboard_model and \
-	# 	   self.bios_date == rhs.bios_date and \
-	# 	   self.ipmi_version == rhs.ipmi_version and \
-	# 	   self.processor_info == rhs.processor_info and \
-	# 	   self.processor_freq == rhs.processor_freq and \
-	# 	   self.processor_count == rhs.processor_count and \
-	# 	   self.total_core_count == rhs.total_core_count and \
-	# 	   self.total_dimm_count == rhs.total_dimm_count and \
-	# 	   self.dimm_clock_speed == rhs.dimm_clock_speed and \
-	# 	   self.dimm_memory_size == rhs.dimm_memory_size and \
-	# 	   self.processor_family == rhs.processor_family and \
-	# 	   self.hpl_block_size == rhs.hpl_block_size and \
-	# 	   self.hpl_problem_size == rhs.hpl_problem_size and \
-	# 	   self.linpack_theoretical_score == rhs.linpack_theoretical_score:
-
-	# 	   	return True
-
-	# 	else:
-	# 		return False
-
-
-	# def __hash__(self):
-	# 	return hash((self.motherboard_model, self.bios_date, self.ipmi_version,
-	# 				 self.processor_info, self.processor_freq, self.processor_count,
-	# 				 self.total_core_count, self.total_dimm_count, self.dimm_clock_speed,
-	# 				 self.dimm_memory_size, self.processor_family, self.hpl_block_size,
-	# 				 self.hpl_problem_size, self.linpack_theoretical_score))
 
 
 	def __str__(self):
@@ -192,19 +163,6 @@ class DIMM(models.Model):
 	manufacturer = models.CharField(max_length=400)
 	part_number = models.CharField(max_length=350)
 	date_created = models.DateTimeField('date created')
-
-
-	# def __eq__(self, rhs):
-	# 	if self.manufacturer == rhs.manufacturer and \
-	# 	   self.part_number == rhs.part_number:
-	# 	   	return True
-
-	# 	else:
-	# 		return False
-
-	# def __hash__(self):
-	# 	return hash((self.manufacturer, self.part_number))
-
 
 	def __str__(self):
 		return self.manufacturer + " " + self.part_number
