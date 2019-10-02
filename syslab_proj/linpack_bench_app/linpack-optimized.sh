@@ -60,7 +60,8 @@ dmidecode -t memory | grep -F "Part Number" | grep -Fv "NO DIMM" | grep -Fv "Dim
 
 #Make Total Memory into GB
 MEM="$(cat /proc/meminfo | grep -i MEMtotal | awk '{print $2}')"
-MEMGB=$(bc <<< "scale=5; $MEM / 1000000")
+#MEMGB=$(bc <<< "scale=5; $MEM / 1000000")
+MEMGB=$(echo "$MEM/1000000" | bc)
 echo Total Memory: "$MEMGB" GB | tee -a $FILE
 
 #Set Processor Family
