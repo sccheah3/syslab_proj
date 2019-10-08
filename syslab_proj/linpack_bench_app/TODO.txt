@@ -1,12 +1,12 @@
 4. add comments to code
 5. deal with duplicate parsing
-	- change duplicate comparison. proc model, num proc, dimm model, # dimms, dimm/channel populated; sys_test automation only concerned with giving report
+	- change duplicate comparison. MB model, proc model, num proc, dimm model, # dimms, dimm/channel populated; sys_test automation only concerned with giving report
 6. remove failed linpacks from calculations -- DONE
 	- checked != PASSED
 7. Refactor
+7.1 Migrate System info Models to linpack_bnech_app; will use separate profiler and model for system_test_app
 8. Add chart
-	- include # cpu and dimm/channel, linpack version
-	- update profiler script, linpack version
+	- include # cpu(done) and #slot/channel, total dimm slot(done) 
 	- charts lib to local - unable, will violate google's terms of service -- DONE
 	- fix formatting of title when hover over bar -- DONE
 	- make chart size and file formatting more dynamic
