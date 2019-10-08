@@ -52,6 +52,10 @@ fi
 #Memory Information
 echo --------------Memory Information--------------- | tee -a $FILE
 dmidecode -t memory | grep -F "Size" | grep -Fv "No Module Installed" | wc -l | awk '{print "Number of DIMMs: "$0}' | tee -a $FILE
+dimm_slots=$(sudo lshw -class memory | grep -io "DIMM[a-zA-Z][0-9]$")
+dimm_slot_count=$(sudo lshw -class memory | grep -io "DIMM[a-zA-Z][0-9]$" | wc -l)
+echo $(echo "$dimm_slot_count") Total DIMM Slots
+echo $(echo $dimm_slots | grep -io "[0-9]$") DIMM Slots per channel
 #cat /proc/meminfo | grep -i MEMtotal | awk '{print "Memory Total: "$2" "$3}' | tee -a $FILE
 dmidecode -t memory | grep -F "Configured Clock" | grep -Fv "Unknown" | awk NR==1'{print "Configured Clock Speed: "$4" MHz"}' | tee -a $FILE
 dmidecode -t memory | grep -F Manufacturer | grep -Fv "NO DIMM" | grep -Fv "Dimm" | awk '{$1="";print "DIMM Manufacturer: "$0}' >> $FILE
