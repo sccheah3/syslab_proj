@@ -12,7 +12,7 @@ from .models import Linpack
 
 
 # files < 2.5 MB stored in mem. Files > are stored in a tmp folder
-# curl --form title=TestTitle --form file=@test.txt http://127.0.0.1:8000/linpack_bench/upload_zipfile/
+# curl --form file=@zipfile.zip http://127.0.0.1:8000/linpack_bench/upload_zipfile/
 @csrf_exempt	# can be dangerous with bad request. ASSUMPTION: no one will do anything dumb or malicious
 def upload_zipfile(request):
 	if request.method == 'POST':

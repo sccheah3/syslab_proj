@@ -61,16 +61,18 @@ def parse_zipfile(file, sysinfo_filename, hpl_filename, output_filename):
 
 # saves the system info and dimm into DB
 def save_sysinfo(sysinfo):
-	formatted_bios_date = datetime.datetime.strptime(sysinfo.bios_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+	#formatted_bios_date = datetime.datetime.strptime(sysinfo.bios_date, "%m/%d/%Y").strftime("%Y-%m-%d")
 	
 	system = System(motherboard_model = sysinfo.motherboard, \
-		     		bios_date = formatted_bios_date, \
-		   			ipmi_version = sysinfo.ipmi_version, \
+		     		# bios_date = formatted_bios_date, \
+		   			# ipmi_version = sysinfo.ipmi_version, \
 		   			processor_info = sysinfo.processor, \
 		   			processor_freq = sysinfo.processor_freq, \
 				    processor_count = sysinfo.processor_count, \
 				    total_core_count = sysinfo.processor_total_core_count, \
 				    total_dimm_count = sysinfo.dimm_count, \
+				    num_dimm_slots = sysinfo.num_dimm_slots, \
+				    dimm_slots_per_channel = sysinfo.dimm_slots_per_channel, \
 				    dimm_clock_speed = sysinfo.dimm_freq, \
 				    dimm_memory_size = sysinfo.dimm_total_mem_size, \
 				    processor_family = sysinfo.processor_family, \
@@ -95,7 +97,11 @@ def save_sysinfo(sysinfo):
 # saves linpack info associated with system to DB
 def save_linpackinfo(system, linpack_info):
 
+	formatted_bios_date = datetime.datetime.strptime(linpack_info.system_bios_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+
 	system.linpack_set.create(tester_name = linpack_info.tester_name, \
+							  system_bios_date = formatted_bios_date, \
+							  system_ipmi_version = linpack_info.system_ipmi_version, \
 					  		  N = linpack_info.N, \
 					  		  NB = linpack_info.NB, \
 					  		  PMAP = linpack_info.PMAP, \
@@ -126,12 +132,14 @@ def save_linpackinfo(system, linpack_info):
 def get_existing_config(parsed_system):
 	systems = System.objects.filter(
 				motherboard_model = parsed_system.motherboard, \
-				bios_date = datetime.datetime.strptime(parsed_system.bios_date, "%m/%d/%Y").strftime("%Y-%m-%d"), \
+				# bios_date = datetime.datetime.strptime(parsed_system.bios_date, "%m/%d/%Y").strftime("%Y-%m-%d"), \
 				processor_info = parsed_system.processor, \
 				processor_freq = parsed_system.processor_freq, \
 				processor_count = parsed_system.processor_count, \
 				total_core_count = parsed_system.processor_total_core_count, \
 				total_dimm_count = parsed_system.dimm_count, \
+				num_dimm_slots = parsed_system.num_dimm_slots, \
+				dimm_slots_per_channel = parsed_system.dimm_slots_per_channel, \
 				dimm_clock_speed = parsed_system.dimm_freq, \
 				dimm_memory_size = parsed_system.dimm_total_mem_size, \
 				processor_family = parsed_system.processor_family
