@@ -27,8 +27,6 @@
         <th>DIMM Size</th>
         <th>DIMM Freq.</th>
         <th>Linpack Theoretical</th>
-        <th>BIOS</th>
-        <th>IPMI</th>
         <th>Date</th>
       </tr>
     </thead>
@@ -45,8 +43,6 @@
         <td>{{ system.get_dimm_memory_size }}</td>
         <td>{{ system.dimm_clock_speed }}</td>
         <td>{{ system.linpack_theoretical_score }}</td>
-        <td>{{ system.get_bios_date }}</td>
-        <td>{{ system.ipmi_version }}</td>
         <td>{{ system.get_date_modified }}</td>
       </tr>
       {% endfor %}

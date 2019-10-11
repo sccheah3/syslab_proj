@@ -21,14 +21,15 @@
 					<th>AVG Linpack Score</th>
 					<th>Processor Family</th>
 					<th>Processor</th>
+					<th>Proc Count</th>
 					<th>DIMM Manufacturer</th>
 					<th>DIMM PN</th>
 					<th># DIMMS</th>
+					<th>DIMM Slots</th>
+					<th>Slot/Channel</th>
 					<th>DIMM Size</th>
 					<th>DIMM Freq.</th>
 					<th>Linpack Theoretical</th>
-					<th>BIOS</th>
-					<th>IPMI</th>
 					<th>Date</th>
 				</tr>
 			</thead>
@@ -40,14 +41,15 @@
 					<td>{{ system.get_linpack_avg_actual_data }}</td>
 					<td>{{ system.get_processor_family }}</td>
 					<td>{{ system.processor_info }}</td>
+					<td>{{ system.processor_count }}</td>
 					<td>{{ system.get_dimm_manu_data }}</td>
 					<td>{{ system.get_dimm_pn_data }}</td>
 					<td>{{ system.total_dimm_count }}</td>
+					<td>{{ system.num_dimm_slots }}</td>
+					<td>{{ system.dimm_slots_per_channel }}</td>
 					<td>{{ system.get_dimm_memory_size }}</td>
 					<td>{{ system.dimm_clock_speed }}</td>
 					<td>{{ system.linpack_theoretical_score }}</td>
-					<td>{{ system.get_bios_date }}</td>
-					<td>{{ system.ipmi_version }}</td>
 					<td>{{ system.get_date_modified }}</td>
 				</tr>
 				{% endfor %}
@@ -59,14 +61,15 @@
 					<th class="searchFilter">AVG Lin Score</th>
 					<th class="searchFilter">Proc. Family</th>
 					<th class="searchFilter">Proc.</th>
+					<th class="searchFilter"># Proc.</th>
 					<th class="searchFilter">DIMM Manu.</th>
 					<th class="searchFilter">DIMM PN</th>
 					<th class="searchFilter"># DIMMS</th>
+					<th class="searchFilter"># DIMM Slot</th>
+					<th class="searchFilter">Slot/Channel</th>
 					<th class="searchFilter">DIMM Size</th>
 					<th class="searchFilter">DIMM Freq.</th>
 					<th class="searchFilter">Lin Theo.</th>
-					<th class="searchFilter">BIOS</th>
-					<th class="searchFilter">IPMI</th>
 					<th class="searchFilter">Date</th>
 				</tr>
 			</tfoot>

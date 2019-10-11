@@ -16,11 +16,13 @@
 				<th>Processor Family</th>
 				<th>Processor</th>
 				<th>Processor Freq.</th>
+				<th># Processors</th>
 				<th>Total Cores</th>
+				<th># DIMMS</th>
 				<th>DIMM Size</th>
 				<th>DIMM Freq.</th>
-				<th>BIOS</th>
-				<th>IPMI</th>
+				<th>DIMM Slots</th>
+				<th>Slots/Channel</th>
 				<th>Date</th>
 			</tr>
 		</thead>
@@ -29,12 +31,14 @@
 				<td>{{ system.motherboard_model }}</td>
 				<td>{{ system.get_processor_family }}</td>
 				<td>{{ system.processor_info }}</td>
-				<td>{{ system.dimm_clock_speed }}</td>
+				<td>{{ system.processor_freq }}</td>
+				<td>{{ system.processor_count }}
 				<td>{{ system.total_core_count }}</td>
+				<td>{{ system.total_dimm_count }}</td>
 				<td>{{ system.dimm_memory_size }}</td>
 				<td>{{ system.dimm_clock_speed }}</td>
-				<td>{{ system.get_bios_date }}</td>
-				<td>{{ system.ipmi_version }}</td>
+				<td>{{ system.num_dimm_slots }}</td>
+				<td>{{ system.dimm_slots_per_channel }}</td>
 				<td>{{ system.get_date_created }}</td>
 			</tr>
 		</tbody>
@@ -71,6 +75,8 @@
 				<th>Theoretical GFLOPS</th>
 				<th>Expected Answer</th>
 				<th>Answer</th>
+				<th>BIOS</th>
+				<th>IPMI</th>
 				<th>Problem</th>
 				<th>N</th>
 				<th>NB</th>
@@ -97,10 +103,12 @@
 			{% for linpack in linpacks %}
 			<tr>
 				<td>{{ linpack.tester_name }}</td>
-				<td>{{ linpack.actual_GFLOPS }}</td>
+				<td>{{ linpack.get_linpack_score }} GFLOPS</td>
 				<td>{{ system.linpack_theoretical_score }}</td>
 				<td>{{ linpack.expected_answer }}</td>
 				<td>{{ linpack.answer_result }}</td>
+				<td>{{ linpack.get_system_bios_date }}</td>
+				<td>{{ linpack.system_ipmi_version }}</td>
 				<td>{{ linpack.given_problem }}</td>
 				<td>{{ linpack.N }}</td>
 				<td>{{ linpack.NB }}</td>

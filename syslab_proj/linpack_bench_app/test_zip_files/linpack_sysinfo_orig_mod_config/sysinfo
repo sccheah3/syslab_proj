@@ -11,12 +11,14 @@ Cores per Processor: 8
 Total Core Count: 16
 --------------Memory Information---------------
 Number of DIMMs: 8
+Total DIMM Slots: 16
+DIMM Slots per channel: 2
 Configured Clock Speed: 1333 MHz
 DIMM Manufacturer:  Hynix Semiconductor
 DIMM Manufacturer:  Hynix Semiconductor
 DIMM Manufacturer:  Hynix Semiconductor
 DIMM Manufacturer:  Hynix Semiconductor
-DIMM Manufacturer:  Samsungs
+DIMM Manufacturer:  Samsung
 DIMM Manufacturer:  Samsung
 DIMM Manufacturer:  Samsung
 DIMM Manufacturer:  Samsung

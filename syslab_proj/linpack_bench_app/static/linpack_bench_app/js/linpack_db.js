@@ -6,7 +6,7 @@ $(document).ready(function() {
  
     // DataTable
     var table = $('#sysinfoTable').DataTable({
-		"order": [[13, "desc"]]
+		"order": [[14, "desc"]]
 	});
 	$('.dataTables_length').addClass('bs-select');
  
