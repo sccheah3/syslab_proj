@@ -4,13 +4,15 @@ import datetime
 
 class System(models.Model):
 	motherboard_model = models.CharField(max_length=200)
-	bios_date = models.DateTimeField('bios_date')
-	ipmi_version = models.CharField(max_length=50)
+	#bios_date = models.DateTimeField('bios_date')
+	#ipmi_version = models.CharField(max_length=50)
 	processor_info = models.CharField(max_length=300)
 	processor_freq = models.CharField(max_length=200)
 	processor_count = models.IntegerField(default=0)
 	total_core_count = models.IntegerField(default=0)
 	total_dimm_count = models.IntegerField(default=0)
+	num_dimm_slots = models.IntegerField(default=0)
+	dimm_slots_per_channel = models.IntegerField(default=0)
 	dimm_clock_speed = models.CharField(max_length=200)
 	dimm_memory_size = models.CharField(max_length=200)
 	processor_family = models.CharField(max_length=300)
@@ -45,9 +47,9 @@ class System(models.Model):
 		return str(self.dimm_clock_speed)
 	
 
-	@property
-	def get_bios_date(self):
-		return self.bios_date.strftime("%m/%d/%Y")
+	# @property
+	# def get_bios_date(self):
+	# 	return self.bios_date.strftime("%m/%d/%Y")
 	
 	@property
 	def get_date_created(self):
