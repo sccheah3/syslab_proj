@@ -13,14 +13,14 @@ class SysInfoParser:
 		self.motherboard = match.group(1)
 
 		# gets bios date
-		match = re.search(r'BIOS ver:\s*(\d\d/\d\d/\d\d\d\d)', data)
+		# match = re.search(r'BIOS ver:\s*(\d\d/\d\d/\d\d\d\d)', data)
 		# print("@bios version: " + match.group(1))
-		self.bios_date = match.group(1)
+		# self.bios_date = match.group(1)
 
 		# gets ipmi version
-		match = re.search(r'IPMI ver:\s*([\d.]+)', data)
+		# match = re.search(r'IPMI ver:\s*([\d.]+)', data)
 		# print("@ipmi version: " + match.group(1))
-		self.ipmi_version = match.group(1)
+		# self.ipmi_version = match.group(1)
 
 		# gets processor info
 		match = re.search(r'Processor:\s*([^\n]+)', data)
@@ -46,6 +46,16 @@ class SysInfoParser:
 		match = re.search(r'Number of DIMMs:\s*([\d]+)', data)
 		# print("@total number of dimms: " + match.group(1))
 		self.dimm_count = match.group(1)
+
+		# gets total number of DIMM slots
+		match = re.search(r'Total DIMM Slots:\s*([\d]+)', data)
+		# print("@total number of dimm slots: " + match.group(1))
+		self.num_dimm_slots = match.group(1)
+
+		# gets DIMM slots per channel
+		match = re.search(r'DIMM Slots per channel:\s*([\d]+)', data)
+		# print("@dimm slots per channel: " + match.group(1))
+		self.dimm_slots_per_channel = match.group(1)
 
 		# gets dimm freq
 		match = re.search(r'Configured Clock Speed:\s*([^\n]+)', data)
@@ -106,6 +116,16 @@ class LinpackParser:
 		match = re.search(r'Tester:\s*([\w\.-]+)', sysinfo_data)
 		# print("@tester_name: " + match.group(1))
 		self.tester_name = match.group(1)
+
+		# gets bios date
+		match = re.search(r'BIOS ver:\s*(\d\d/\d\d/\d\d\d\d)', sysinfo_data)
+		# print("@bios version: " + match.group(1))
+		self.system_bios_date = match.group(1)
+
+		# gets ipmi version
+		match = re.search(r'IPMI ver:\s*([\d.]+)', sysinfo_data)
+		# print("@ipmi version: " + match.group(1))
+		self.system_ipmi_version = match.group(1)
 
 		# get N
 		match = re.search(r'N\s*:\s*([\d]+)', output_file_data)
