@@ -22,5 +22,7 @@
 12. Add comparison with all CPUs regardless of config
 13. Show bios and dimm in Linpack section		-- DONE
 14. Change models around and app to system_benchmark. set up models/db to take other drives/gpus etc for other benchmarking
+15. show efficiency score for linpack runs
+16. RC Script
 
 
